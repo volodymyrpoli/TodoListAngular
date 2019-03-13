@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterContentInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
@@ -6,12 +6,13 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   templateUrl: './one-field-form.component.html',
   styleUrls: ['./one-field-form.component.css']
 })
-export class OneFieldFormComponent implements OnInit {
+export class OneFieldFormComponent implements OnInit, OnChanges {
 
   form: FormGroup;
   @Input() title: string;
   @Input() fieldName: string;
   @Input() buttonTitle: string;
+  @Input() disabled = false;
   @Output() submitForm = new EventEmitter<string>();
 
   constructor(private formBuilder: FormBuilder) { }
@@ -28,6 +29,16 @@ export class OneFieldFormComponent implements OnInit {
       this.form.reset();
     } else {
       alert('Field can`t be empty');
+    }
+  }
+
+  ngOnChanges(): void {
+    if (this.form) {
+      if (!this.disabled) {
+        this.form.disable();
+      } else {
+        this.form.enable();
+      }
     }
   }
 

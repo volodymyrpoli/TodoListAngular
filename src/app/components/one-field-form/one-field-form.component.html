@@ -1,7 +1,14 @@
 <h2>{{ title }}</h2>
 <form (ngSubmit)="submit()" [formGroup]="form" autocomplete="off">
   <label>
-    <input type="text" name="fieldValue" formControlName="fieldValue" [placeholder]="fieldName">
+    <input
+      type="text"
+      name="fieldValue"
+      formControlName="fieldValue"
+      [placeholder]="fieldName">
   </label>
-  <input type="submit" [value]="buttonTitle">
+  <input
+    type="submit"
+    [value]="buttonTitle"
+    [disabled]="form.disabled">
 </form>

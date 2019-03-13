@@ -31,7 +31,7 @@ export class TodoList {
   }
 
   selectOtherProject(project: Project) {
-    if (this.currentSelected === project && this.projects[0]) {
+    if (this.currentSelected === project) {
       if (this.projects[0]) {
         this.currentSelected = this.projects[0];
       } else {
