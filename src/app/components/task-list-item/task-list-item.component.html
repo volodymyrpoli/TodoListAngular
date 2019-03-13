@@ -1,6 +1,6 @@
 <div>
   <label for="markCheckbox"></label>
-  <input type="checkbox" id="markCheckbox" [(ngModel)]="task.mark">
+  <input type="checkbox" id="markCheckbox" [(ngModel)]="task.mark" (change)="changeMark($event)">
   <span contenteditable="true" (blur)="onBlur($event)" (keydown)="onKeyDown($event)">{{ task?.title }}</span>
 </div>
 

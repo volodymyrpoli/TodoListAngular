@@ -6,6 +6,7 @@ import { OneFieldFormComponent } from './components/one-field-form/one-field-for
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ProjectListItemComponent } from './components/project-list-item/project-list-item.component';
 import { TaskListItemComponent } from './components/task-list-item/task-list-item.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { TaskListItemComponent } from './components/task-list-item/task-list-ite
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

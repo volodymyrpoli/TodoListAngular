@@ -1,3 +1,5 @@
+import {TaskDTO} from './TaskDTO';
+
 export class Task {
   id: number;
   title: string;
@@ -7,6 +9,10 @@ export class Task {
     this.id = id;
     this.title = title;
     this.mark = mark;
+  }
+
+  static createFromDTO(task: TaskDTO): Task {
+    return new Task(task.id, task.title, task.mark);
   }
 
   public setMark(mark: boolean) {

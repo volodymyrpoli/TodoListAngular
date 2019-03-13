@@ -1,4 +1,5 @@
 import {Task} from './Task';
+import {ProjectDTO} from './ProjectDTO';
 
 export class Project {
   id: number;
@@ -9,6 +10,10 @@ export class Project {
     this.id = id;
     this.name = name;
     this.tasks = [];
+  }
+
+  static createFromDTO(projectDTO: ProjectDTO) {
+    return new Project(projectDTO.id, projectDTO.name);
   }
 
   public addTask(task: Task): void {
