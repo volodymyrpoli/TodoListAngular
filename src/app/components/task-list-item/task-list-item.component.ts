@@ -22,4 +22,20 @@ export class TaskListItemComponent implements OnInit {
     this.removeTask.emit(this.task);
   }
 
+  onKeyDown(event: KeyboardEvent) {
+    if (event.code === 'Enter') {
+      event.preventDefault();
+      this.task.setTitle((event.target as HTMLSpanElement).innerHTML);
+      (event.target as HTMLSpanElement).blur();
+    } else if (event.code === 'Escape') {
+      event.preventDefault();
+      (event.target as HTMLSpanElement).innerHTML = this.task.title;
+      (event.target as HTMLSpanElement).blur();
+    }
+  }
+
+  onBlur(event: FocusEvent) {
+    event.preventDefault();
+    (event.target as HTMLSpanElement).innerHTML = this.task.title;
+  }
 }

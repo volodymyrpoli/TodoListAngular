@@ -1,5 +1,5 @@
 <label>
-  <input type="checkbox" [(ngModel)]="task?.mark || checkboxIfNull">
-  {{ task?.title }}
+  <input type="checkbox" [(ngModel)]="task.mark">
 </label>
+<span contenteditable="true" (blur)="onBlur($event)" (keydown)="onKeyDown($event)">{{ task?.title }}</span>
 <input type="button" [value]="removeButtonTitle" (click)="remove($event)">
