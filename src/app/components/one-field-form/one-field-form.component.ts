@@ -25,6 +25,7 @@ export class OneFieldFormComponent implements OnInit {
   submit() {
     if (this.form.valid) {
       this.submitForm.emit(this.form.value.fieldValue);
+      this.form.reset();
     } else {
       alert('Field can`t be empty');
     }

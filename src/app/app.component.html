@@ -1,38 +1,43 @@
-<aside>
-  <app-one-field-form
-    title="Projects"
-    buttonTitle="Create"
-    fieldName="Project name"
-    (submitForm)="createProject($event)">
+<div class="app__wrapper">
 
-  </app-one-field-form>
-  <ul>
-    <li *ngFor="let project of todoList.projects">
-      <app-project-list-item
-        [project]="project"
-        removeButtonTitle="Delete">
+  <aside>
+    <app-one-field-form
+      title="Projects"
+      buttonTitle="Create"
+      fieldName="Project name"
+      (submitForm)="createProject($event)">
 
-      </app-project-list-item>
-    </li>
-  </ul>
-</aside>
+    </app-one-field-form>
+    <ul>
+      <li *ngFor="let project of todoList.projects">
+        <app-project-list-item
+          [project]="project"
+          removeButtonTitle="Delete"
+          (click)="selectProject(project)">
 
-<main>
-  <app-one-field-form
-    title="Tasks"
-    buttonTitle="Add"
-    fieldName="Task description"
-    (submitForm)="addTask($event)">
+        </app-project-list-item>
+      </li>
+    </ul>
+  </aside>
 
-  </app-one-field-form>
+  <main>
+    <app-one-field-form
+      title="Tasks"
+      buttonTitle="Add"
+      fieldName="Task description"
+      (submitForm)="addTask($event)">
 
-  <ul>
-    <li *ngFor="let task of todoList.currentSelected.tasks">
-      <app-task-list-item
-        [task]="task"
-        removeButtonTitle="Hide">
+    </app-one-field-form>
 
-      </app-task-list-item>
-    </li>
-  </ul>
-</main>
+    <ul>
+      <li *ngFor="let task of todoList.currentSelected.tasks">
+        <app-task-list-item
+          [task]="task"
+          removeButtonTitle="Hide">
+
+        </app-task-list-item>
+      </li>
+    </ul>
+  </main>
+
+</div>

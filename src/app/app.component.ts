@@ -9,18 +9,14 @@ import {Task} from './entities/Task';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'TodoListAngular';
+
+  static last = 10;
 
   todoList: TodoList;
-
-  createProject(event: string): void {
-    alert(event + 'project');
+  static generateId() {
+    return this.last++;
   }
 
-
-  addTask(event: string): void {
-    alert(event);
-  }
 
   ngOnInit(): void {
     this.todoList = new TodoList();
@@ -38,4 +34,19 @@ export class AppComponent implements OnInit {
     this.todoList.addProject(project2);
 
   }
+
+  createProject(projectName: string): void {
+    this.todoList.addProject(new Project(AppComponent.generateId(), projectName));
+  }
+
+  addTask(taskTitle: string): void {
+    this.todoList.currentSelected.addTask(new Task(AppComponent.generateId(), taskTitle, false));
+  }
+
+  selectProject(project: Project): void {
+    if (!this.todoList.select(project)) {
+      alert('No one project found');
+    }
+  }
+
 }
