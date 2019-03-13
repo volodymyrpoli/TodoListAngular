@@ -15,6 +15,7 @@ export class TodoList {
 
   public removeProject(project: Project): void {
     this.projects = this.projects.filter(item => item !== project);
+    this.selectOtherProject(project);
   }
 
   public findProjectById(id: number): Project {
@@ -28,5 +29,16 @@ export class TodoList {
     }
     return false;
   }
+
+  selectOtherProject(project: Project) {
+    if (this.currentSelected === project && this.projects[0]) {
+      if (this.projects[0]) {
+        this.currentSelected = this.projects[0];
+      } else {
+        this.currentSelected = null;
+      }
+    }
+  }
+
 
 }

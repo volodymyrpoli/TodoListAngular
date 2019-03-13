@@ -49,4 +49,8 @@ export class AppComponent implements OnInit {
     }
   }
 
+  removeProject(project: Project): void {
+    this.todoList.removeProject(project);
+  }
+
 }

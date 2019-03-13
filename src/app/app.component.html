@@ -13,7 +13,8 @@
         <app-project-list-item
           [project]="project"
           removeButtonTitle="Delete"
-          (click)="selectProject(project)">
+          (click)="selectProject(project)"
+          (remove)="removeProject(project)">
 
         </app-project-list-item>
       </li>
