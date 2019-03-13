@@ -2,6 +2,7 @@ import {Project} from './Project';
 
 export class TodoList {
   projects: Array<Project>;
+  currentSelected: Project;
 
   constructor() {
     this.projects = [];
@@ -9,6 +10,7 @@ export class TodoList {
 
   public addProject(project: Project): void {
     this.projects.push(project);
+    this.currentSelected = project;
   }
 
   public removeProject(project: Project): void {

@@ -11,6 +11,7 @@ export class TaskListItemComponent implements OnInit {
   @Input() task: Task;
   @Input() removeButtonTitle: string;
   @Output() removeProject = new EventEmitter<Task>();
+  checkboxIfNull: false;
 
   constructor() { }
 

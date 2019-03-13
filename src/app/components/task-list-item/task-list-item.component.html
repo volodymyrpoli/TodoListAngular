@@ -1,5 +1,5 @@
 <label>
-  <input type="checkbox" [(ngModel)]="task.mark">
-  {{ task.title }}
+  <input type="checkbox" [(ngModel)]="task?.mark || checkboxIfNull">
+  {{ task?.title }}
 </label>
 <input type="button" [value]="removeButtonTitle">

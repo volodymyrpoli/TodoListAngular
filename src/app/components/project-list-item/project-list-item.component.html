@@ -1,4 +1,4 @@
 <label>
-  {{ project.name }}
-  <input (click)="removeClick($event)" [value]="removeButtonTitle">
+  {{ project?.name }}
+  <input type="button" (click)="removeClick($event)" [value]="removeButtonTitle">
 </label>

@@ -7,7 +7,13 @@
 
   </app-one-field-form>
   <ul>
-    <li><app-project-list-item></app-project-list-item></li>
+    <li *ngFor="let project of todoList.projects">
+      <app-project-list-item
+        [project]="project"
+        removeButtonTitle="Delete">
+
+      </app-project-list-item>
+    </li>
   </ul>
 </aside>
 
@@ -21,6 +27,12 @@
   </app-one-field-form>
 
   <ul>
-    <li><app-task-list-item></app-task-list-item></li>
+    <li *ngFor="let task of todoList.currentSelected.tasks">
+      <app-task-list-item
+        [task]="task"
+        removeButtonTitle="Hide">
+
+      </app-task-list-item>
+    </li>
   </ul>
 </main>
