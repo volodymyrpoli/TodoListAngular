@@ -34,7 +34,8 @@
       <li *ngFor="let task of todoList.currentSelected.tasks">
         <app-task-list-item
           [task]="task"
-          removeButtonTitle="Hide">
+          removeButtonTitle="Hide"
+          (removeTask)="removeTask(task)">
 
         </app-task-list-item>
       </li>

@@ -2,4 +2,4 @@
   <input type="checkbox" [(ngModel)]="task?.mark || checkboxIfNull">
   {{ task?.title }}
 </label>
-<input type="button" [value]="removeButtonTitle">
+<input type="button" [value]="removeButtonTitle" (click)="remove($event)">

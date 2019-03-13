@@ -17,7 +17,6 @@ export class AppComponent implements OnInit {
     return this.last++;
   }
 
-
   ngOnInit(): void {
     this.todoList = new TodoList();
 
@@ -53,4 +52,7 @@ export class AppComponent implements OnInit {
     this.todoList.removeProject(project);
   }
 
+  removeTask(task: Task) {
+    this.todoList.currentSelected.removeTask(task);
+  }
 }

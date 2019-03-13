@@ -10,7 +10,7 @@ export class TaskListItemComponent implements OnInit {
 
   @Input() task: Task;
   @Input() removeButtonTitle: string;
-  @Output() removeProject = new EventEmitter<Task>();
+  @Output() removeTask = new EventEmitter<Task>();
   checkboxIfNull: false;
 
   constructor() { }
@@ -19,7 +19,7 @@ export class TaskListItemComponent implements OnInit {
   }
 
   remove(event) {
-    this.removeProject.emit(this.task);
+    this.removeTask.emit(this.task);
   }
 
 }
