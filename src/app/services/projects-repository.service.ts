@@ -22,8 +22,8 @@ export class ProjectsRepositoryService {
     return this.httpClient.post<ProjectDTO>(`${this.URL}/projects`, project);
   }
 
-  deleteProject(project: Project): Observable<ProjectDTO> {
-    return this.httpClient.delete<ProjectDTO>(`${this.URL}/projects/${project.id}`);
+  deleteProject(project: Project): Observable<{}> {
+    return this.httpClient.delete<{}>(`${this.URL}/projects/${project.id}`);
   }
 
 }

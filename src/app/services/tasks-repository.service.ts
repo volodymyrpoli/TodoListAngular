@@ -22,8 +22,8 @@ export class TasksRepositoryService {
     return this.httpClient.post<TaskDTO>(`${this.URL}/tasks`, task);
   }
 
-  deleteTask(task: Task): Observable<TaskDTO> {
-    return this.httpClient.delete<TaskDTO>(`${this.URL}/tasks/${task.id}`);
+  deleteTask(task: Task): Observable<{}> {
+    return this.httpClient.delete<{}>(`${this.URL}/tasks/${task.id}`);
   }
 
   changeMarkForTask(task: Task, mark: boolean): Observable<TaskDTO> {
