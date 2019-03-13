@@ -10,8 +10,10 @@ export class TaskListItemComponent implements OnInit {
 
   @Input() task: Task;
   @Input() removeButtonTitle: string;
-  @Output() removeTask = new EventEmitter<Task>();
-  checkboxIfNull: false;
+  @Output('removeTask') removeTask = new EventEmitter<Task>();
+  @Output('changeMark') changeMarkEmitter = new EventEmitter<boolean>();
+  @Output('changeTitle') changeTitleEmitter = new EventEmitter<string>();
+  private saveWithEnter = false;
 
   constructor() { }
 
@@ -25,7 +27,8 @@ export class TaskListItemComponent implements OnInit {
   onKeyDown(event: KeyboardEvent) {
     if (event.code === 'Enter') {
       event.preventDefault();
-      this.task.setTitle((event.target as HTMLSpanElement).innerHTML);
+      this.changeTitle((event.target as HTMLSpanElement).innerHTML);
+      this.saveWithEnter = true;
       (event.target as HTMLSpanElement).blur();
     } else if (event.code === 'Escape') {
       event.preventDefault();
@@ -36,6 +39,17 @@ export class TaskListItemComponent implements OnInit {
 
   onBlur(event: FocusEvent) {
     event.preventDefault();
-    (event.target as HTMLSpanElement).innerHTML = this.task.title;
+    if (!this.saveWithEnter) {
+      this.changeTitle((event.target as HTMLSpanElement).innerHTML);
+    }
+    this.saveWithEnter = false;
+  }
+
+  changeMark(event: Event) {
+    this.changeMarkEmitter.emit((event.target as HTMLInputElement).checked);
+  }
+
+  changeTitle(title: string) {
+    this.changeTitleEmitter.emit(title);
   }
 }

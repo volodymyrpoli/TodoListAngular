@@ -26,6 +26,9 @@ export class TodoListService {
             }
             this.todoList.projects.push(newProject);
           }
+          if (this.todoList.projects[0]) {
+            this.todoList.currentSelected = this.todoList.projects[0];
+          }
         });
       });
   }
@@ -74,5 +77,19 @@ export class TodoListService {
 
   isAnySelected(): boolean {
     return !!this.todoList.currentSelected;
+  }
+
+  changeTaskMark(task: Task, mark: boolean) {
+    this.tasksRepository.changeMarkForTask(task, mark)
+      .subscribe(taskDTO => {
+        task.setMark(taskDTO.mark);
+      });
+  }
+
+  changeTaskTitle(task: Task, title: string) {
+    this.tasksRepository.changeTaskTitle(task, title)
+      .subscribe(taskDTO => {
+        task.setTitle(taskDTO.title);
+      });
   }
 }

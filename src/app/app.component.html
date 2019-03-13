@@ -44,7 +44,9 @@
           <app-task-list-item
             [task]="task"
             removeButtonTitle="Hide"
-            (removeTask)="todoList.removeTask(task)">
+            (removeTask)="todoList.removeTask(task)"
+            (changeMark)="todoList.changeTaskMark(task, $event)"
+            (changeTitle)="todoList.changeTaskTitle(task, $event)">
           </app-task-list-item>
 
         </li>
