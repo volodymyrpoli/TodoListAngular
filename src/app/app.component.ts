@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'TodoListAngular';
+
+  createProject(event: string): void {
+    alert(event + 'project');
+  }
+
+
+  addTask(event: string): void {
+    alert(event);
+  }
 }
