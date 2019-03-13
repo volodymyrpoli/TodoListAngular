@@ -1,0 +1,14 @@
+:host {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+input[type=checkbox]:checked ~ span {
+  text-decoration: line-through;
+  color: #838383;
+}
+
+:host:hover > input[type=button] {
+  opacity: 1;
+}

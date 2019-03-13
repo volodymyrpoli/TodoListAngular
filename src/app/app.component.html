@@ -1,45 +1,47 @@
-<div class="app__wrapper">
+<div class="full__size">
+  <div class="main__wrapper">
 
-  <aside>
-    <app-one-field-form
-      title="Projects"
-      buttonTitle="Create"
-      fieldName="Project name"
-      (submitForm)="createProject($event)">
+    <aside class="project__wrapper">
+      <app-one-field-form
+        title="Projects"
+        buttonTitle="Create"
+        fieldName="Project name"
+        (submitForm)="createProject($event)">
 
-    </app-one-field-form>
-    <ul>
-      <li *ngFor="let project of todoList.projects">
-        <app-project-list-item
-          [project]="project"
-          removeButtonTitle="Delete"
-          (click)="selectProject(project)"
-          (remove)="removeProject(project)">
+      </app-one-field-form>
+      <ul class="list__without__style project__list">
+        <li *ngFor="let project of todoList.projects" [className]="todoList.currentSelected === project ? 'selected__project' : ''">
+          <app-project-list-item
+            [project]="project"
+            removeButtonTitle="Delete"
+            (click)="selectProject(project)"
+            (remove)="removeProject(project)">
 
-        </app-project-list-item>
-      </li>
-    </ul>
-  </aside>
+          </app-project-list-item>
+        </li>
+      </ul>
+    </aside>
 
-  <main>
-    <app-one-field-form
-      title="Tasks"
-      buttonTitle="Add"
-      fieldName="Task description"
-      (submitForm)="addTask($event)">
+    <main class="tasks__wrapper">
+      <app-one-field-form
+        [title]="todoList.currentSelected.name || 'Tasks'"
+        buttonTitle="Add"
+        fieldName="Task description"
+        (submitForm)="addTask($event)">
 
-    </app-one-field-form>
+      </app-one-field-form>
 
-    <ul>
-      <li *ngFor="let task of todoList.currentSelected.tasks">
-        <app-task-list-item
-          [task]="task"
-          removeButtonTitle="Hide"
-          (removeTask)="removeTask(task)">
+      <ul class="list__without__style task__list">
+        <li *ngFor="let task of todoList.currentSelected.tasks">
+          <app-task-list-item
+            [task]="task"
+            removeButtonTitle="Hide"
+            (removeTask)="removeTask(task)">
 
-        </app-task-list-item>
-      </li>
-    </ul>
-  </main>
+          </app-task-list-item>
+        </li>
+      </ul>
+    </main>
 
+  </div>
 </div>

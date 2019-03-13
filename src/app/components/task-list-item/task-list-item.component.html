@@ -1,5 +1,7 @@
-<label>
-  <input type="checkbox" [(ngModel)]="task.mark">
-</label>
-<span contenteditable="true" (blur)="onBlur($event)" (keydown)="onKeyDown($event)">{{ task?.title }}</span>
-<input type="button" [value]="removeButtonTitle" (click)="remove($event)">
+<div>
+  <label for="markCheckbox"></label>
+  <input type="checkbox" id="markCheckbox" [(ngModel)]="task.mark">
+  <span contenteditable="true" (blur)="onBlur($event)" (keydown)="onKeyDown($event)">{{ task?.title }}</span>
+</div>
+
+<input type="button" class="hide" [value]="removeButtonTitle" (click)="remove($event)">

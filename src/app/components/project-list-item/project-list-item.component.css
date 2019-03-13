@@ -1,0 +1,9 @@
+:host {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+:host:hover > label > input[type=button] {
+  opacity: 1;
+}
