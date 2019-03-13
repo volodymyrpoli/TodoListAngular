@@ -1,0 +1,38 @@
+{
+  "projects": [
+    {
+      "name": "Default",
+      "id": 1
+    },
+    {
+      "name": "new",
+      "id": 2
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Say hello",
+      "mark": true,
+      "projectId": 1,
+      "id": 1
+    },
+    {
+      "title": "Say world",
+      "mark": true,
+      "projectId": 1,
+      "id": 2
+    },
+    {
+      "title": "Say hello world",
+      "mark": true,
+      "projectId": 1,
+      "id": 3
+    },
+    {
+      "title": "Say something good",
+      "mark": false,
+      "projectId": 1,
+      "id": 4
+    }
+  ]
+}
