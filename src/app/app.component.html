@@ -6,20 +6,20 @@
         title="Projects"
         buttonTitle="Create"
         fieldName="Project name"
-        (submitForm)="createProject($event)">
+        (submitForm)="todoList.createProject($event)">
 
       </app-one-field-form>
 
       <ul class="list__without__style project__list">
         <li
-          *ngFor="let project of todoList.projects"
-          [className]="todoList.currentSelected === project ? 'selected__project' : ''">
+          *ngFor="let project of todoList.getProjects()"
+          [className]="todoList.getSelected() === project ? 'selected__project' : ''">
 
           <app-project-list-item
             [project]="project"
             removeButtonTitle="Delete"
-            (click)="selectProject(project)"
-            (remove)="removeProject(project)">
+            (click)="todoList.selectProject(project)"
+            (remove)="todoList.removeProject(project)">
           </app-project-list-item>
 
         </li>
@@ -30,21 +30,21 @@
     <main class="tasks__wrapper">
 
       <app-one-field-form
-        [title]="todoList.currentSelected?.name || 'Tasks'"
+        [title]="todoList.getSelected()?.name || 'Tasks'"
         buttonTitle="Add"
         fieldName="Task description"
-        (submitForm)="addTask($event)"
-        [disabled]="!!todoList.currentSelected?.name">
+        (submitForm)="todoList.addTask($event)"
+        [disabled]="todoList.isAnySelected()">
 
       </app-one-field-form>
 
       <ul class="list__without__style task__list">
-        <li *ngFor="let task of todoList.currentSelected?.tasks">
+        <li *ngFor="let task of todoList.getSelected()?.tasks">
 
           <app-task-list-item
             [task]="task"
             removeButtonTitle="Hide"
-            (removeTask)="removeTask(task)">
+            (removeTask)="todoList.removeTask(task)">
           </app-task-list-item>
 
         </li>
