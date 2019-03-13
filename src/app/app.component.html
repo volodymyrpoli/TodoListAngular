@@ -1,15 +1,26 @@
-<app-one-field-form
-  title="Projects"
-  buttonTitle="Create"
-  fieldName="Project name"
-  (submitForm)="createProject($event)">
+<aside>
+  <app-one-field-form
+    title="Projects"
+    buttonTitle="Create"
+    fieldName="Project name"
+    (submitForm)="createProject($event)">
 
-</app-one-field-form>
+  </app-one-field-form>
+  <ul>
+    <li><app-project-list-item></app-project-list-item></li>
+  </ul>
+</aside>
 
-<app-one-field-form
-  title="Tasks"
-  buttonTitle="Add"
-  fieldName="Task description"
-  (submitForm)="addTask($event)">
+<main>
+  <app-one-field-form
+    title="Tasks"
+    buttonTitle="Add"
+    fieldName="Task description"
+    (submitForm)="addTask($event)">
 
-</app-one-field-form>
+  </app-one-field-form>
+
+  <ul>
+    <li><app-task-list-item></app-task-list-item></li>
+  </ul>
+</main>
