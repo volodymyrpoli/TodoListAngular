@@ -18,8 +18,8 @@
           <app-project-list-item
             removeButtonTitle="Delete"
             [project]="project"
-            (click)="todoListObservable.selectProject(project)"
-            (remove)="todoListObservable.deleteProject(project)">
+            (click)="selectProject(project)"
+            (remove)="deleteProject(project)">
           </app-project-list-item>
 
         </li>
@@ -30,9 +30,9 @@
     <main class="tasks__wrapper">
 
       <app-one-field-form
-        [title]="currentProject?.name"
         buttonTitle="Add"
         placeholder="Task description"
+        [title]="currentProject?.name"
         (submitForm)="addTask($event)"
         [disabled]="todoList.isAnySelected()">
 
@@ -42,11 +42,11 @@
         <li *ngFor="let task of todoListObservable.currentProjectTasks$ | async">
 
           <app-task-list-item
-            [task]="task"
             removeButtonTitle="Hide"
-            (removeTask)="todoListObservable.deleteTask(task)"
-            (changeMark)="todoList.changeTaskMark(task, $event)"
-            (changeTitle)="todoList.changeTaskTitle(task, $event)">
+            [task]="task"
+            (removeTask)="deleteTask(task)"
+            (changeMark)="changeTaskMark(task, $event)"
+            (changeTitle)="changeTaskTitle(task, $event)">
           </app-task-list-item>
 
         </li>

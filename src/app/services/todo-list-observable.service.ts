@@ -132,6 +132,38 @@ export class TodoListObservableService {
        ));
     });
   }
+
+  changeTaskTitle(currentTask: Task, title: string) {
+    this.tasksRepository.changeTaskTitle(currentTask, title)
+      .pipe(map(Task.createFromDTO))
+      .subscribe(task => {
+        this.currentProjectTasksEvent$.next(new TodoListEvent(
+          'CHANGE_TASK_TITLE',
+          task,
+          (acc, payload) => {
+            acc.filter(item => item.id === payload.id)
+               .map(item => item.setTitle(payload.title));
+            return acc;
+          }
+        ));
+      });
+  }
+
+  changeTaskMark(currentTask: Task, mark: boolean) {
+    this.tasksRepository.changeMarkForTask(currentTask, mark)
+      .pipe(map(Task.createFromDTO))
+      .subscribe(task => {
+        this.currentProjectTasksEvent$.next(new TodoListEvent(
+          'CHANGE_TASK_MARK',
+          task,
+          (acc, payload) => {
+            acc.filter(item => item.id === payload.id)
+               .map(item => item.setMark(payload.mark));
+            return acc;
+          }
+        ));
+      });
+  }
 }
 
 class TodoListEvent {

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TodoListService} from './services/todo-list.service';
 import {TodoListObservableService} from './services/todo-list-observable.service';
 import {Project} from './entities/Project';
+import {Task} from './entities/Task';
 
 @Component({
   selector: 'app-root',
@@ -30,4 +31,23 @@ export class AppComponent implements OnInit {
     this.todoListObservable.createProject(name);
   }
 
+  changeTaskTitle(task: Task, title: string) {
+    this.todoListObservable.changeTaskTitle(task, title);
+  }
+
+  changeTaskMark(task: Task, mark: boolean) {
+    this.todoListObservable.changeTaskMark(task, mark);
+  }
+
+  deleteTask(task: Task) {
+    this.todoListObservable.deleteTask(task);
+  }
+
+  selectProject(project: Project) {
+    this.todoListObservable.selectProject(project);
+  }
+
+  deleteProject(project: Project) {
+    this.todoListObservable.deleteProject(project);
+  }
 }
