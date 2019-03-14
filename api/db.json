@@ -1,39 +1,15 @@
 {
   "projects": [
     {
-      "name": "Default",
-      "id": 1
-    },
-    {
       "id": 2,
       "name": "new"
+    },
+    {
+      "id": 4,
+      "name": "some thing new"
     }
   ],
   "tasks": [
-    {
-      "title": "Say helksjdfsdfsdfhksjdhflo",
-      "mark": true,
-      "projectId": 1,
-      "id": 1
-    },
-    {
-      "title": "Say world",
-      "mark": false,
-      "projectId": 1,
-      "id": 2
-    },
-    {
-      "title": "Say hello world",
-      "mark": false,
-      "projectId": 1,
-      "id": 3
-    },
-    {
-      "title": "Say something good",
-      "mark": false,
-      "projectId": 1,
-      "id": 4
-    },
     {
       "id": 5,
       "title": "hello",

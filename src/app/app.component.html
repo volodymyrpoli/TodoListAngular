@@ -19,7 +19,7 @@
             removeButtonTitle="Delete"
             [project]="project"
             (click)="todoListObservable.selectProject(project)"
-            (remove)="todoList.removeProject(project)">
+            (remove)="todoListObservable.deleteProject(project)">
           </app-project-list-item>
 
         </li>
