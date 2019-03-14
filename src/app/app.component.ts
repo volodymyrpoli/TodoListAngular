@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {TodoListService} from './services/todo-list.service';
 import {TodoListObservableService} from './services/todo-list-observable.service';
+import {interval, Observable, Subject} from 'rxjs';
+import {map, reduce, scan} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
