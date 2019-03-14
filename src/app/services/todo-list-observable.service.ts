@@ -32,11 +32,12 @@ export class TodoListObservableService {
     this.projectsEvent$ = this.createEventHandler<Project>(this.projects$);
     this.currentProjectTasksEvent$ = this.createEventHandler<Task>(this.currentProjectTasks$);
 
-    this.projects$.subscribe(value => {
-      this.tasksRepository.getTasksForProject(value.find(() => true))
+    this.projects$.subscribe(projects => {
+      this.tasksRepository.getTasksForProject(projects.find(() => true))
         .pipe(
           map(taskDTOs => taskDTOs.map(Task.createFromDTO))
         ).subscribe(tasks => {
+          this.currentProject$.next(projects.find(() => true));
           this.currentProjectTasksEvent$.next(new TodoListEvent(
             'LOAD_TASKS_FOR_PROJECT', tasks, (acc, payload) => payload)
           );
@@ -74,6 +75,7 @@ export class TodoListObservableService {
       .pipe(
         map(taskDTOs => taskDTOs.map(Task.createFromDTO))
       ).subscribe(tasks => {
+        this.currentProject$.next(project);
         this.currentProjectTasksEvent$.next(new TodoListEvent(
           'SELECT_PROJECT',
           tasks,
@@ -100,6 +102,22 @@ export class TodoListObservableService {
           'DELETE_TASK',
           task,
           (acc, payload) => acc.filter(item => item !== payload)
+        ));
+      });
+  }
+
+  createTask(title: string, project: Project) {
+    this.tasksRepository.createTask({id: null, title, mark: false, projectId: project.id})
+      .pipe(
+        map(Task.createFromDTO)
+      ).subscribe(task => {
+        this.currentProjectTasksEvent$.next(new TodoListEvent(
+          'CREATE_TASK',
+          task,
+          (acc, payload) => {
+            acc.push(payload);
+            return acc;
+          }
         ));
       });
   }

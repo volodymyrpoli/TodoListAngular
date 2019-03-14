@@ -30,10 +30,10 @@
     <main class="tasks__wrapper">
 
       <app-one-field-form
-        [title]="todoList.getSelected()?.name || 'Tasks'"
+        [title]="currentProject?.name"
         buttonTitle="Add"
         placeholder="Task description"
-        (submitForm)="todoList.addTask($event)"
+        (submitForm)="addTask($event)"
         [disabled]="todoList.isAnySelected()">
 
       </app-one-field-form>
