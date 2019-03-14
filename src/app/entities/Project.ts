@@ -15,16 +15,4 @@ export class Project {
   static createFromDTO(projectDTO: ProjectDTO) {
     return new Project(projectDTO.id, projectDTO.name);
   }
-
-  public addTask(task: Task): void {
-    this.tasks.push(task);
-  }
-
-  public removeTask(task: Task): void {
-    this.tasks = this.tasks.filter(item => item !== task);
-  }
-
-  public findTaskById(id: number): Task {
-    return this.tasks.find(task => task.id === id);
-  }
 }
