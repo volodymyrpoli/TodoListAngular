@@ -46,6 +46,7 @@ export class TaskListItemComponent implements OnInit {
   }
 
   changeMark(event: Event) {
+    event.preventDefault();
     this.changeMarkEmitter.emit((event.target as HTMLInputElement).checked);
   }
 

@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {TaskDTO} from '../entities/TaskDTO';
 import {Task} from '../entities/Task';
+import {Project} from '../entities/Project';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,10 @@ export class TasksRepositoryService {
 
   getTasks(): Observable<Array<TaskDTO>> {
     return this.httpClient.get<Array<TaskDTO>>(`${this.URL}/tasks`);
+  }
+
+  getTasksForProject(project: Project): Observable<Array<TaskDTO>> {
+    return this.httpClient.get<Array<TaskDTO>>(`${this.URL}/tasks?projectId=${project.id}`);
   }
 
   createTask(task: TaskDTO): Observable<TaskDTO> {

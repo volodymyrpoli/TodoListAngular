@@ -18,13 +18,13 @@
     },
     {
       "title": "Say world",
-      "mark": true,
+      "mark": false,
       "projectId": 1,
       "id": 2
     },
     {
       "title": "Say hello world",
-      "mark": true,
+      "mark": false,
       "projectId": 1,
       "id": 3
     },
@@ -37,13 +37,13 @@
     {
       "id": 5,
       "title": "hello",
-      "mark": false,
+      "mark": true,
       "projectId": 2
     },
     {
       "id": 7,
       "title": "some new",
-      "mark": false,
+      "mark": true,
       "projectId": 2
     }
   ]

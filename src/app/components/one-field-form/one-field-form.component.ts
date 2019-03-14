@@ -10,7 +10,7 @@ export class OneFieldFormComponent implements OnInit, OnChanges {
 
   form: FormGroup;
   @Input() title: string;
-  @Input() fieldName: string;
+  @Input() placeholder: string;
   @Input() buttonTitle: string;
   @Input() disabled = false;
   @Output() submitForm = new EventEmitter<string>();
