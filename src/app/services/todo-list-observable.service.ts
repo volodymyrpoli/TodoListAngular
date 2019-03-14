@@ -92,6 +92,17 @@ export class TodoListObservableService {
         ));
       });
   }
+
+  deleteTask(task: Task) {
+    this.tasksRepository.deleteTask(task)
+      .subscribe(() => {
+        this.currentProjectTasksEvent$.next(new TodoListEvent(
+          'DELETE_TASK',
+          task,
+          (acc, payload) => acc.filter(item => item !== payload)
+        ));
+      });
+  }
 }
 
 class TodoListEvent {
