@@ -6,14 +6,14 @@
         title="Projects"
         buttonTitle="Create"
         placeholder="Project name"
-        (submitForm)="todoList.createProject($event)">
+        (submitForm)="addProject($event)">
 
       </app-one-field-form>
 
       <ul class="list__without__style project__list">
         <li
           *ngFor="let project of todoListObservable.projects$ | async"
-          [class.selected_project]="todoList.getSelected() === project">
+          [class.selected_project]="currentProject?.id === project?.id">
 
           <app-project-list-item
             removeButtonTitle="Delete"

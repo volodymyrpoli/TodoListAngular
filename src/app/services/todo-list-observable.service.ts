@@ -34,9 +34,8 @@ export class TodoListObservableService {
 
     this.projects$.subscribe(projects => {
       this.tasksRepository.getTasksForProject(projects.find(() => true))
-        .pipe(
-          map(taskDTOs => taskDTOs.map(Task.createFromDTO))
-        ).subscribe(tasks => {
+        .pipe(map(taskDTOs => taskDTOs.map(Task.createFromDTO)))
+        .subscribe(tasks => {
           this.currentProject$.next(projects.find(() => true));
           this.currentProjectTasksEvent$.next(new TodoListEvent(
             'LOAD_TASKS_FOR_PROJECT', tasks, (acc, payload) => payload)
@@ -45,9 +44,8 @@ export class TodoListObservableService {
     });
 
     this.projectsRepository.getProjects()
-      .pipe(
-        map(projectDTOs => projectDTOs.map(Project.createFromDTO))
-      ).subscribe(projects => {
+      .pipe(map(projectDTOs => projectDTOs.map(Project.createFromDTO)))
+      .subscribe(projects => {
         this.projectsEvent$.next(new TodoListEvent(
           'LOAD_ALL_PROJECT', projects,
           (acc, payload) => {
@@ -72,9 +70,8 @@ export class TodoListObservableService {
 
   selectProject(project: Project) {
     this.tasksRepository.getTasksForProject(project)
-      .pipe(
-        map(taskDTOs => taskDTOs.map(Task.createFromDTO))
-      ).subscribe(tasks => {
+      .pipe(map(taskDTOs => taskDTOs.map(Task.createFromDTO)))
+      .subscribe(tasks => {
         this.currentProject$.next(project);
         this.currentProjectTasksEvent$.next(new TodoListEvent(
           'SELECT_PROJECT',
@@ -108,9 +105,8 @@ export class TodoListObservableService {
 
   createTask(title: string, project: Project) {
     this.tasksRepository.createTask({id: null, title, mark: false, projectId: project.id})
-      .pipe(
-        map(Task.createFromDTO)
-      ).subscribe(task => {
+      .pipe(map(Task.createFromDTO))
+      .subscribe(task => {
         this.currentProjectTasksEvent$.next(new TodoListEvent(
           'CREATE_TASK',
           task,
@@ -120,6 +116,21 @@ export class TodoListObservableService {
           }
         ));
       });
+  }
+
+  createProject(name: string) {
+    this.projectsRepository.createProject({id: null, name})
+      .pipe(map(Project.createFromDTO))
+      .subscribe(project => {
+       this.projectsEvent$.next(new TodoListEvent(
+         'CREATE_PROJECT',
+         project,
+         (acc, payload) => {
+           acc.push(payload);
+           return acc;
+         }
+       ));
+    });
   }
 }
 

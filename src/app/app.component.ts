@@ -26,4 +26,8 @@ export class AppComponent implements OnInit {
     this.todoListObservable.createTask(title, this.currentProject);
   }
 
+  addProject(name: string) {
+    this.todoListObservable.createProject(name);
+  }
+
 }
