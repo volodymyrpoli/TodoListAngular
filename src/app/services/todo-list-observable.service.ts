@@ -29,25 +29,35 @@ export class TodoListObservableService {
   }
 
   load() {
-    this.projectsEvent$ = this.createEventer<Project>(this.projects$);
-    this.currentProjectTasksEvent$ = this.createEventer<Task>(this.currentProjectTasks$);
+    this.projectsEvent$ = this.createEventHandler<Project>(this.projects$);
+    this.currentProjectTasksEvent$ = this.createEventHandler<Task>(this.currentProjectTasks$);
+
+    this.projects$.subscribe(value => {
+      this.tasksRepository.getTasksForProject(value.find(() => true))
+        .pipe(
+          map(taskDTOs => taskDTOs.map(Task.createFromDTO))
+        ).subscribe(tasks => {
+          this.currentProjectTasksEvent$.next(new TodoListEvent(
+            'LOAD_TASKS_FOR_PROJECT', tasks, (acc, payload) => payload)
+          );
+      });
+    });
 
     this.projectsRepository.getProjects()
       .pipe(
         map(projectDTOs => projectDTOs.map(Project.createFromDTO))
       ).subscribe(projects => {
         this.projectsEvent$.next(new TodoListEvent(
-          'LOAD_ALL_PROJECT',
-          projects,
+          'LOAD_ALL_PROJECT', projects,
           (acc, payload) => {
             return payload;
           }));
-      }
-    );
+      });
+
   }
 
-  createEventer<T>(subject: Subject<T[]>): Subject<TodoListEvent> {
-    const a =  new Subject<TodoListEvent>();
+  private createEventHandler<T>(subject: Subject<T[]>): Subject<TodoListEvent> {
+    const a = new Subject<TodoListEvent>();
     a.pipe(
         scan((acc: T[], event: TodoListEvent): T[] => {
           console.log(event.type);
@@ -60,7 +70,16 @@ export class TodoListObservableService {
   }
 
   selectProject(project: Project) {
-
+    this.tasksRepository.getTasksForProject(project)
+      .pipe(
+        map(taskDTOs => taskDTOs.map(Task.createFromDTO))
+      ).subscribe(tasks => {
+        this.currentProjectTasksEvent$.next(new TodoListEvent(
+          'SELECT_PROJECT',
+          tasks,
+          (acc, payload) => payload
+        ));
+    });
   }
 }
 
