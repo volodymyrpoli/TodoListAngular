@@ -43,7 +43,7 @@
   height: calc(100vh - 16px);
 }
 
-.selected__project {
+.selected_project {
   background-color: #e6e6e6;
   font-weight: bold;
 }

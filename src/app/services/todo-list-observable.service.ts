@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import { Project } from '../entities/Project';
 import { Task } from '../entities/Task';
 import { ProjectsRepositoryService } from './projects-repository.service';
@@ -33,14 +33,18 @@ export class TodoListObservableService {
     this.currentProjectTasksEvent$ = this.createEventHandler<Task>(this.currentProjectTasks$);
 
     this.projects$.subscribe(projects => {
-      this.tasksRepository.getTasksForProject(projects.find(() => true))
-        .pipe(map(taskDTOs => taskDTOs.map(Task.createFromDTO)))
-        .subscribe(tasks => {
-          this.currentProject$.next(projects.find(() => true));
-          this.currentProjectTasksEvent$.next(new TodoListEvent(
-            'LOAD_TASKS_FOR_PROJECT', tasks, (acc, payload) => payload)
-          );
-      });
+      if (projects.length !== 0) {
+        this.tasksRepository.getTasksForProject(projects.find(() => true))
+          .pipe(map(taskDTOs => taskDTOs.map(Task.createFromDTO)))
+          .subscribe(tasks => {
+            this.currentProject$.next(projects[0]);
+            this.currentProjectTasksEvent$.next(new TodoListEvent(
+              'LOAD_TASKS_FOR_PROJECT', tasks, (acc, payload) => payload)
+            );
+          });
+      } else {
+        this.currentProject$.next(null);
+      }
     });
 
     this.projectsRepository.getProjects()

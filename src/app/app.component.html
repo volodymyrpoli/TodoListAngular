@@ -32,9 +32,9 @@
       <app-one-field-form
         buttonTitle="Add"
         placeholder="Task description"
-        [title]="currentProject?.name"
+        [title]="currentProject?.name || 'Tasks'"
         (submitForm)="addTask($event)"
-        [disabled]="todoList.isAnySelected()">
+        [disabled]="currentProject !== null">
 
       </app-one-field-form>
 
