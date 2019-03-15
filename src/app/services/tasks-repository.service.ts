@@ -38,4 +38,8 @@ export class TasksRepositoryService {
   changeTaskTitle(task: Task, title: string): Observable<TaskDTO> {
     return this.httpClient.patch<TaskDTO>(`${this.URL}/tasks/${task.id}`, { title });
   }
+
+  getTasksForProjectById(id: number) {
+    return this.httpClient.get<Array<TaskDTO>>(`${this.URL}/tasks?projectId=${id}`);
+  }
 }

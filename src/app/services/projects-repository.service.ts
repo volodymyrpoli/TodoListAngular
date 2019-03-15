@@ -18,6 +18,10 @@ export class ProjectsRepositoryService {
     return this.httpClient.get<Array<ProjectDTO>>(`${this.URL}/projects`);
   }
 
+  getProjectById(id: number): Observable<ProjectDTO> {
+    return this.httpClient.get<ProjectDTO>(`${this.URL}/projects/${id}`);
+  }
+
   createProject(project: ProjectDTO): Observable<ProjectDTO> {
     return this.httpClient.post<ProjectDTO>(`${this.URL}/projects`, project);
   }

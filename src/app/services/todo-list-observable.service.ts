@@ -59,16 +59,26 @@ export class TodoListObservableService {
   }
 
   selectProject(project: Project) {
-    this.tasksRepository.getTasksForProject(project)
-      .pipe(map(taskDTOs => taskDTOs.map(Task.createFromDTO)))
+    return this.applySelectProject(this.tasksRepository.getTasksForProject(project), project.id);
+  }
+
+  selectProjectById(id: number) {
+    return this.applySelectProject(this.tasksRepository.getTasksForProjectById(id), id);
+  }
+
+  applySelectProject(ob: Observable<any>, projectId: number) {
+    ob.pipe(map(taskDTOs => taskDTOs.map(Task.createFromDTO)))
       .subscribe(tasks => {
-        this.currentProject$.next(project);
+        this.projectsRepository.getProjectById(projectId)
+          .pipe(map(Project.createFromDTO))
+          .subscribe(value => this.currentProject$.next(value));
         this.currentProjectTasksEventHandler$.next(new TodoListEvent(
           'SELECT_PROJECT',
           tasks,
           (acc, payload) => payload
         ));
-    });
+      });
+    return ob;
   }
 
   deleteProject(project: Project) {

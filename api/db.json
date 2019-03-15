@@ -2,19 +2,81 @@
   "projects": [
     {
       "id": 1,
-      "name": "new"
+      "name": "First project"
     },
     {
-      "id": 6,
-      "name": "5"
+      "id": 2,
+      "name": "Second project"
+    },
+    {
+      "id": 3,
+      "name": "Third project"
+    },
+    {
+      "id": 4,
+      "name": "Fourty project"
     }
   ],
   "tasks": [
     {
       "id": 1,
-      "title": "hello",
+      "title": "First project task",
       "mark": false,
       "projectId": 1
+    },
+    {
+      "id": 2,
+      "title": "First project second task",
+      "mark": false,
+      "projectId": 1
+    },
+    {
+      "id": 3,
+      "title": "First project third task",
+      "mark": false,
+      "projectId": 1
+    },
+    {
+      "id": 4,
+      "title": "Second project new task",
+      "mark": false,
+      "projectId": 2
+    },
+    {
+      "id": 5,
+      "title": "Second project good task ",
+      "mark": false,
+      "projectId": 2
+    },
+    {
+      "id": 6,
+      "title": "Third project good task",
+      "mark": true,
+      "projectId": 3
+    },
+    {
+      "id": 7,
+      "title": "Third project new red task",
+      "mark": false,
+      "projectId": 3
+    },
+    {
+      "id": 8,
+      "title": "Forty project hell task",
+      "mark": false,
+      "projectId": 4
+    },
+    {
+      "id": 9,
+      "title": "And some other good task",
+      "mark": false,
+      "projectId": 4
+    },
+    {
+      "id": 10,
+      "title": "😃Task",
+      "mark": false,
+      "projectId": 2
     }
   ]
 }
