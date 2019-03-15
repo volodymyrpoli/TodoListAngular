@@ -13,12 +13,10 @@ import { pluck } from 'rxjs/operators';
 export class SplitViewComponent implements OnInit {
 
   currentProject: Project;
-  private lastLoadedProjectId: number;
 
   constructor(private todoListObservable: TodoListObservableService,
               private activatedRouter: ActivatedRoute,
               private router: Router) {
-    console.log(this);
   }
 
   ngOnInit(): void {
@@ -28,15 +26,16 @@ export class SplitViewComponent implements OnInit {
     this.activatedRouter.params
       .pipe(pluck('projectId'))
       .subscribe((value: number) => {
-      if (value) {
-        this.todoListObservable.selectProjectById(value)
-          .subscribe({
-            error: () => this.router.navigate(['projects/']).catch(console.log)
-          });
-      } else if (this.lastLoadedProjectId) {
-        this.todoListObservable.selectProjectById(this.lastLoadedProjectId);
-      }
-    });
+        if (value) {
+          localStorage.setItem('lastLoadProjectId', `${value}`);
+          this.todoListObservable.selectProjectById(value)
+            .subscribe({
+              error: () => this.router.navigate(['projects/']).catch(console.log)
+            });
+        } else if (localStorage.getItem('lastLoadProjectId')) {
+          this.todoListObservable.selectProjectById(+localStorage.getItem('lastLoadProjectId'));
+        }
+      });
   }
 
   addTask(title: string) {
@@ -64,6 +63,6 @@ export class SplitViewComponent implements OnInit {
   }
 
   deleteProject(project: Project) {
-    this.todoListObservable.deleteProject(project);
+    this.todoListObservable.deleteProject(project, this.currentProject);
   }
 }

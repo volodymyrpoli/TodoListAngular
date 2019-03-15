@@ -4,8 +4,8 @@ import { Project } from '../entities/Project';
 import { Task } from '../entities/Task';
 import { ProjectsRepositoryService } from './projects-repository.service';
 import { TasksRepositoryService } from './tasks-repository.service';
-import {map, scan} from 'rxjs/operators';
-import {TodoListEvent} from '../entities/TodoListEvent';
+import { map, scan } from 'rxjs/operators';
+import { TodoListEvent } from '../entities/TodoListEvent';
 
 @Injectable({
   providedIn: 'root'
@@ -91,14 +91,25 @@ export class TodoListObservableService {
     return ob;
   }
 
-  deleteProject(project: Project) {
-    this.projectsRepository.deleteProject(project)
+  deleteProject(project: Project, currentProject: Project) {
+    return this.projectsRepository.deleteProject(project)
       .subscribe(() => {
+        if (project.id === currentProject.id) {
+          this.selectFirstProject();
+        }
         this.projectsEventHandler$.next(new TodoListEvent(
           'DELETE_PROJECT',
           project,
           (acc, payload) => acc.filter(item => item !== payload)
         ));
+      });
+  }
+
+  selectFirstProject() {
+    this.projectsRepository.getProjects()
+      .pipe(map(projectDTOs => projectDTOs.map(Project.createFromDTO)))
+      .subscribe(projects => {
+        this.selectProjectById(projects[0].id);
       });
   }
 

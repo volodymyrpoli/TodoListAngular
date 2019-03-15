@@ -18,6 +18,7 @@ export class ProjectListItemComponent implements OnInit {
   }
 
   removeClick(event): void {
+    event.stopPropagation();
     this.remove.emit(this.project);
   }
 
