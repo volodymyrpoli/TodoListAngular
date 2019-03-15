@@ -21,13 +21,9 @@ export class SplitViewComponent implements OnInit {
   ngOnInit(): void {
     this.todoListObservable.load();
     this.todoListObservable.currentProject$
-      .subscribe(project => {
-        this.currentProject = project;
-        console.dir(project);
-      });
+      .subscribe(project => this.currentProject = project);
     this.activatedRouter.params.subscribe(value => {
       if (value) {
-        console.dir(value);
         this.todoListObservable.selectProjectById(value.projectId)
           .subscribe({
             error: () => this.router.navigate(['projects/']).catch(console.log)

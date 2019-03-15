@@ -15,12 +15,12 @@ export class TasksRepositoryService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getTasks(): Observable<Array<TaskDTO>> {
-    return this.httpClient.get<Array<TaskDTO>>(`${this.URL}/tasks`);
+  getTasksForProject(project: Project): Observable<Array<TaskDTO>> {
+    return this.getTasksForProjectById(project.id);
   }
 
-  getTasksForProject(project: Project): Observable<Array<TaskDTO>> {
-    return this.httpClient.get<Array<TaskDTO>>(`${this.URL}/tasks?projectId=${project.id}`);
+  getTasksForProjectById(projectId: number): Observable<Array<TaskDTO>> {
+    return this.httpClient.get<Array<TaskDTO>>(`${this.URL}/tasks?projectId=${projectId}`);
   }
 
   createTask(task: TaskDTO): Observable<TaskDTO> {
@@ -39,7 +39,4 @@ export class TasksRepositoryService {
     return this.httpClient.patch<TaskDTO>(`${this.URL}/tasks/${task.id}`, { title });
   }
 
-  getTasksForProjectById(id: number) {
-    return this.httpClient.get<Array<TaskDTO>>(`${this.URL}/tasks?projectId=${id}`);
-  }
 }

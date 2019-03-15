@@ -30,14 +30,7 @@ export class TodoListObservableService {
 
     this.projects$.subscribe(projects => {
       if (projects.length !== 0) {
-        this.tasksRepository.getTasksForProject(projects.find(() => true))
-          .pipe(map(taskDTOs => taskDTOs.map(Task.createFromDTO)))
-          .subscribe(tasks => {
-            this.currentProject$.next(projects[0]);
-            this.currentProjectTasksEventHandler$.next(new TodoListEvent(
-              'LOAD_TASKS_FOR_PROJECT', tasks, (acc, payload) => payload)
-            );
-          });
+        this.loadTaskForProject(projects[0].id);
       } else {
         this.currentProject$.next(null);
       }
@@ -74,22 +67,29 @@ export class TodoListObservableService {
 
   }
 
-  selectProject(project: Project) {
-    return this.applySelectProject(this.tasksRepository.getTasksForProject(project), project.id);
+  loadTaskForProject(projectId: number) {
+    this.tasksRepository.getTasksForProjectById(projectId)
+      .pipe(map(taskDTOs => taskDTOs.map(Task.createFromDTO)))
+      .subscribe(tasks => {
+        this.currentProjectTasksEventHandler$.next(new TodoListEvent(
+          'LOAD_TASKS_FOR_PROJECT', tasks, (acc, payload) => payload)
+        );
+      });
   }
 
   selectProjectById(id: number) {
-    return this.applySelectProject(this.tasksRepository.getTasksForProjectById(id), id);
-  }
-
-  applySelectProject(ob: Observable<any>, projectId: number) {
+    const ob = this.tasksRepository.getTasksForProjectById(id);
     ob.pipe(map(taskDTOs => taskDTOs.map(Task.createFromDTO)))
       .subscribe(tasks => {
-        this.projectsRepository.getProjectById(projectId)
+        this.projectsRepository.getProjectById(id)
           .pipe(map(Project.createFromDTO))
-          .subscribe(value => this.currentProject$.next(value));
+          .subscribe(project => {
+            this.currentProject$.next(project);
+            this.loadTaskForProject(project.id);
+          });
+
         this.currentProjectTasksEventHandler$.next(new TodoListEvent(
-          'SELECT_PROJECT',
+          `SELECT_PROJECT [${id}]`,
           tasks,
           (acc, payload) => payload
         ));
