@@ -1,27 +1,6 @@
-.full__size {
-  width: 100vw;
+:host {
   display: flex;
-  justify-content: center;
-}
-
-.main__wrapper {
-  display: flex;
-  max-width: 800px;
   width: 100%;
-  flex-wrap: wrap;
-}
-
-.list__without__style {
-  list-style: none;
-  padding-left: 0;
-}
-
-.list__without__style li {
-  padding: 8px;
-}
-
-.list__without__style li:nth-child(even) {
-  background-color: #f2f2f2;
 }
 
 .project__list {

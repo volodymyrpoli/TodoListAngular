@@ -8,6 +8,7 @@ import {Task} from '../../../entities/Task';
 })
 export class TaskListItemComponent implements OnInit {
 
+  @Input() editable = true;
   @Input() task: Task;
   @Input() removeButtonTitle: string;
   @Output('removeTask') removeTask = new EventEmitter<Task>();

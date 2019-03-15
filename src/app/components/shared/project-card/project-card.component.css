@@ -1,0 +1,19 @@
+:host {
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  box-shadow: 0 0 2px rgba(0,0,0,0.5);
+  box-sizing: border-box;
+  flex-basis: 222px;
+  margin: 8px;
+  padding: 8px;
+  background-color: white;
+}
+
+h2 {
+  margin-top: 0;
+  cursor: pointer;
+}
+
+h2:hover {
+  text-shadow: 0 0 4px rgba(0,0,0,0.2);
+}

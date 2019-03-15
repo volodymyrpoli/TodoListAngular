@@ -1,0 +1,13 @@
+:host {
+  display: flex;
+  width: 100%;
+  padding: 16px;
+  flex-direction: column;
+  background-color: #fbfbfb;
+  height: calc(100vh - 32px);
+}
+
+.card__wrapper {
+  display: fLex;
+  flex-wrap: wrap;
+}

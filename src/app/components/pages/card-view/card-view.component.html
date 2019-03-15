@@ -1,3 +1,12 @@
-<p>
-  card-view works!
-</p>
+<h2>Best TodoList application</h2>
+<div class="card__wrapper">
+
+  <app-project-card
+    *ngFor="let project of todoList.projectsWithUnresolvedTasks | async"
+    [project]="project"
+    [tasks]="project.tasks"
+    (projectClick)="openProject($event)">
+
+  </app-project-card>
+
+</div>

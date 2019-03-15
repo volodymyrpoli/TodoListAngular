@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import { forkJoin, Observable, Subject } from 'rxjs';
 import { Project } from '../entities/Project';
 import { Task } from '../entities/Task';
 import { ProjectsRepositoryService } from './projects-repository.service';
@@ -12,21 +12,16 @@ import {TodoListEvent} from '../entities/TodoListEvent';
 })
 export class TodoListObservableService {
 
-  private projectsEventHandler$: Subject<TodoListEvent>;
-  private currentProjectTasksEventHandler$: Subject<TodoListEvent>;
+  private projectsEventHandler$ = new Subject<TodoListEvent>();
+  private currentProjectTasksEventHandler$ = new Subject<TodoListEvent>();
 
-  public readonly projects$: Subject<Array<Project>>;
-  public readonly currentProject$: Subject<Project>;
-  public readonly currentProjectTasks$: Subject<Array<Task>>;
+  public readonly projects$ = new Subject<Array<Project>>();
+  public readonly currentProject$ = new Subject<Project>();
+  public readonly currentProjectTasks$ = new Subject<Array<Task>>();
+  public readonly projectsWithUnresolvedTasks = new Subject<Array<Project>>();
 
   constructor(private projectsRepository: ProjectsRepositoryService,
               private tasksRepository: TasksRepositoryService) {
-    this.projects$ = new Subject<Array<Project>>();
-    this.currentProject$ = new Subject<Project>();
-    this.currentProjectTasks$ = new Subject<Array<Task>>();
-
-    this.projectsEventHandler$ = new Subject();
-    this.currentProjectTasksEventHandler$ = new Subject();
   }
 
   load() {
@@ -54,6 +49,27 @@ export class TodoListObservableService {
         this.projectsEventHandler$.next(new TodoListEvent(
           'LOAD_ALL_PROJECT', projects,
           (acc, payload) => payload));
+      });
+
+    this.projectsRepository.getProjects()
+      .pipe(map(projectDTOs => projectDTOs.map(Project.createFromDTO)))
+      .subscribe(projects => {
+        const list$ = [];
+        for (const project of projects) {
+          const subject = new Subject();
+          list$.push(subject);
+          this.tasksRepository.getTasksForProject(project)
+            .pipe(
+              map(taskDTOs => taskDTOs.map(Task.createFromDTO)),
+              map(tasks => tasks.filter(task => !task.mark))
+            ).subscribe(tasks => {
+              project.tasks = tasks.slice(0, 5);
+              subject.complete();
+            });
+        }
+        forkJoin(list$).subscribe({
+          complete: () => this.projectsWithUnresolvedTasks.next(projects)
+        });
       });
 
   }

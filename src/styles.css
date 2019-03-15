@@ -17,3 +17,16 @@ h2 {
 .hide {
   opacity: 0;
 }
+
+.list__without__style {
+  list-style: none;
+  padding-left: 0;
+}
+
+.list__without__style li {
+  padding: 8px;
+}
+
+.list__without__style li:nth-child(even) {
+  background-color: #f2f2f2;
+}

@@ -1,0 +1,12 @@
+.full__size {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.main__wrapper {
+  display: flex;
+  max-width: 800px;
+  width: 100%;
+  flex-wrap: wrap;
+}

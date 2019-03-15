@@ -1,7 +1,17 @@
 <div>
   <label for="markCheckbox"></label>
-  <input type="checkbox" id="markCheckbox" (change)="changeMark($event)" [checked]="task.mark" >
-  <span contenteditable="true" (blur)="onBlur($event)" (keydown)="onKeyDown($event)">{{ task?.title }}</span>
+  <input
+    id="markCheckbox"
+    type="checkbox"
+    [disabled]="!editable"
+    (change)="changeMark($event)"
+    [checked]="task.mark">
+  <span [contentEditable]="editable" (blur)="onBlur($event)" (keydown)="onKeyDown($event)">{{ task?.title }}</span>
 </div>
 
-<input type="button" class="hide" [value]="removeButtonTitle" (click)="remove($event)">
+<input
+  type="button"
+  class="hide"
+  [hidden]="!editable"
+  [value]="removeButtonTitle"
+  (click)="remove($event)">

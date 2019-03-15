@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { SplitViewComponent } from './components/pages/split-view/split-view.component';
 import { CardViewComponent } from './components/pages/card-view/card-view.component';
+import { ProjectCardComponent } from './components/shared/project-card/project-card.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
@@ -27,6 +28,7 @@ const routes: Routes = [
     TaskListItemComponent,
     SplitViewComponent,
     CardViewComponent,
+    ProjectCardComponent,
   ],
   imports: [
     BrowserModule,

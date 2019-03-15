@@ -12,3 +12,8 @@ input[type=checkbox]:checked ~ span {
 :host:hover > input[type=button] {
   opacity: 1;
 }
+
+input[type=checkbox]:disabled,
+span[contenteditable=false] {
+  cursor: default;
+}
