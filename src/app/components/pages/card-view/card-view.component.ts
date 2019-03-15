@@ -1,7 +1,7 @@
-import { Component, OnInit, Pipe } from '@angular/core';
-import { TodoListObservableService } from '../../../services/todo-list-observable.service';
+import { Component, OnInit } from '@angular/core';
 import { Project } from '../../../entities/Project';
 import { Router } from '@angular/router';
+import { ProjectPreviewService } from '../../../services/project-preview.service';
 
 @Component({
   selector: 'app-card-view',
@@ -10,11 +10,11 @@ import { Router } from '@angular/router';
 })
 export class CardViewComponent implements OnInit {
 
-  constructor(private todoList: TodoListObservableService,
+  constructor(private previewService: ProjectPreviewService,
               private router: Router) { }
 
   ngOnInit() {
-    this.todoList.loadProjectForPreview();
+    this.previewService.loadProjectForPreview();
   }
 
   openProject(project: Project) {
@@ -22,6 +22,6 @@ export class CardViewComponent implements OnInit {
   }
 
   pinnedProject(project: Project) {
-    this.todoList.changeProjectPin(project, !project.pinned);
+    this.previewService.changeProjectPin(project, !project.pinned);
   }
 }

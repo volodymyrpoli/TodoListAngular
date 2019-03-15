@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Project } from '../entities/Project';
 import { Task } from '../entities/Task';
 import { ProjectsRepositoryService } from './projects-repository.service';
@@ -18,7 +18,6 @@ export class TodoListObservableService {
   public readonly projects$ = new Subject<Array<Project>>();
   public readonly currentProject$ = new Subject<Project>();
   public readonly currentProjectTasks$ = new Subject<Array<Task>>();
-  public readonly projectsWithUnresolvedTasks$ = new Subject<Array<Project>>();
 
   constructor(private projectsRepository: ProjectsRepositoryService,
               private tasksRepository: TasksRepositoryService) {
@@ -36,30 +35,6 @@ export class TodoListObservableService {
           (acc, payload) => payload));
       });
 
-  }
-
-  loadProjectForPreview() {
-    this.projectsRepository.getProjects()
-      .pipe(map(projectDTOs => projectDTOs.map(Project.createFromDTO)))
-      .subscribe(projects => {
-        const list$ = [];
-        for (const project of projects) {
-          const subject = new Subject();
-          list$.push(subject);
-          this.tasksRepository.getTasksForProject(project)
-            .pipe(
-              map(taskDTOs => taskDTOs.map(Task.createFromDTO)),
-              map(tasks => tasks.filter(task => !task.mark)),
-              map(tasks => tasks.slice(0, 5))
-            ).subscribe(tasks => {
-            project.tasks = tasks;
-            subject.complete();
-          });
-        }
-        forkJoin(list$).subscribe({
-          complete: () => this.projectsWithUnresolvedTasks$.next(projects)
-        });
-      });
   }
 
   loadTaskForProject(projectId: number) {
@@ -127,14 +102,6 @@ export class TodoListObservableService {
          }
        ));
     });
-  }
-
-  changeProjectPin(project: Project, newPin: boolean) {
-    this.projectsRepository.changeProjectPin(project.id, newPin)
-      .pipe(map(Project.createFromDTO))
-      .subscribe(newProject => {
-        this.loadProjectForPreview();
-      });
   }
 
   createTask(title: string, project: Project) {
