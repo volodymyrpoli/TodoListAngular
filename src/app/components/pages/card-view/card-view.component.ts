@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe } from '@angular/core';
 import { TodoListObservableService } from '../../../services/todo-list-observable.service';
 import { Project } from '../../../entities/Project';
 import { Router } from '@angular/router';
@@ -19,5 +19,9 @@ export class CardViewComponent implements OnInit {
 
   openProject(project: Project) {
     this.router.navigate([`projects/${project.id}`]);
+  }
+
+  pinnedProject(project: Project) {
+    this.todoList.changeProjectPin(project, !project.pinned);
   }
 }

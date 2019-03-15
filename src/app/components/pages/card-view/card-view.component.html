@@ -2,10 +2,11 @@
 <div class="card__wrapper">
 
   <app-project-card
-    *ngFor="let project of todoList.projectsWithUnresolvedTasks | async"
+    *ngFor="let project of todoList.projectsWithUnresolvedTasks$ | async | pinned"
     [project]="project"
     [tasks]="project.tasks"
-    (click)="openProject(project)">
+    (click)="openProject(project)"
+    (projectPinned)="pinnedProject($event)">
 
   </app-project-card>
 

@@ -1,3 +1,8 @@
+<div class="badge__wrapper">
+  <div class="badge" [attr.data-pinned]="project.pinned" (click)="pinnedClick($event)">
+    ✔
+  </div>
+</div>
 <h2>{{ project.name }}</h2>
 <ul class="list__without__style">
   <li><app-task-list-item

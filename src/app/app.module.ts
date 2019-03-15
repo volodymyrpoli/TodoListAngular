@@ -11,6 +11,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SplitViewComponent } from './components/pages/split-view/split-view.component';
 import { CardViewComponent } from './components/pages/card-view/card-view.component';
 import { ProjectCardComponent } from './components/shared/project-card/project-card.component';
+import { PinnedPipe } from './pipes/pinned.pipe';
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
@@ -29,6 +30,7 @@ const routes: Routes = [
     SplitViewComponent,
     CardViewComponent,
     ProjectCardComponent,
+    PinnedPipe,
   ],
   imports: [
     BrowserModule,

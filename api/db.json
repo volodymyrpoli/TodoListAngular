@@ -2,23 +2,23 @@
   "projects": [
     {
       "id": 1,
-      "name": "First project"
+      "name": "First project",
+      "pinned": false
     },
     {
       "id": 2,
-      "name": "Second project"
+      "name": "Second project",
+      "pinned": false
     },
     {
       "id": 3,
-      "name": "Third project"
+      "name": "Third project",
+      "pinned": false
     },
     {
       "id": 4,
-      "name": "Fourty project"
-    },
-    {
-      "id": 5,
-      "name": "Fifty project"
+      "name": "Fourty project",
+      "pinned": true
     }
   ],
   "tasks": [

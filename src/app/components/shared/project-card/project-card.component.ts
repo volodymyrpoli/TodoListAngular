@@ -12,10 +12,16 @@ export class ProjectCardComponent implements OnInit {
   @Input() project: Project;
   @Input() tasks: Array<Task>;
   @Output() projectClick = new EventEmitter<Project>();
+  @Output() projectPinned = new EventEmitter<Project>();
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  pinnedClick(event: MouseEvent) {
+    event.stopPropagation();
+    event.preventDefault();
+    this.projectPinned.emit(this.project);
+  }
 }

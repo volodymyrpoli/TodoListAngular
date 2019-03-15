@@ -18,7 +18,7 @@ export class TodoListObservableService {
   public readonly projects$ = new Subject<Array<Project>>();
   public readonly currentProject$ = new Subject<Project>();
   public readonly currentProjectTasks$ = new Subject<Array<Task>>();
-  public readonly projectsWithUnresolvedTasks = new Subject<Array<Project>>();
+  public readonly projectsWithUnresolvedTasks$ = new Subject<Array<Project>>();
 
   constructor(private projectsRepository: ProjectsRepositoryService,
               private tasksRepository: TasksRepositoryService) {
@@ -49,14 +49,15 @@ export class TodoListObservableService {
           this.tasksRepository.getTasksForProject(project)
             .pipe(
               map(taskDTOs => taskDTOs.map(Task.createFromDTO)),
-              map(tasks => tasks.filter(task => !task.mark))
+              map(tasks => tasks.filter(task => !task.mark)),
+              map(tasks => tasks.slice(0, 5))
             ).subscribe(tasks => {
-            project.tasks = tasks.slice(0, 5);
+            project.tasks = tasks;
             subject.complete();
           });
         }
         forkJoin(list$).subscribe({
-          complete: () => this.projectsWithUnresolvedTasks.next(projects)
+          complete: () => this.projectsWithUnresolvedTasks$.next(projects)
         });
       });
   }
@@ -114,7 +115,7 @@ export class TodoListObservableService {
   }
 
   createProject(name: string) {
-    this.projectsRepository.createProject({id: null, name})
+    this.projectsRepository.createProject({id: null, name, pinned: false})
       .pipe(map(Project.createFromDTO))
       .subscribe(project => {
        this.projectsEventHandler$.next(new TodoListEvent(
@@ -126,6 +127,14 @@ export class TodoListObservableService {
          }
        ));
     });
+  }
+
+  changeProjectPin(project: Project, newPin: boolean) {
+    this.projectsRepository.changeProjectPin(project.id, newPin)
+      .pipe(map(Project.createFromDTO))
+      .subscribe(newProject => {
+        this.loadProjectForPreview();
+      });
   }
 
   createTask(title: string, project: Project) {

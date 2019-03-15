@@ -4,6 +4,7 @@ import {ProjectDTO} from './ProjectDTO';
 export class Project {
   id: number;
   name: string;
+  pinned: boolean;
   tasks: Array<Task>;
 
   constructor(id: number, name: string) {
@@ -13,6 +14,8 @@ export class Project {
   }
 
   static createFromDTO(projectDTO: ProjectDTO) {
-    return new Project(projectDTO.id, projectDTO.name);
+    const project = new Project(projectDTO.id, projectDTO.name);
+    project.pinned = projectDTO.pinned;
+    return project;
   }
 }

@@ -30,4 +30,7 @@ export class ProjectsRepositoryService {
     return this.httpClient.delete<{}>(`${this.URL}/projects/${project.id}`);
   }
 
+  changeProjectPin(id: number, newPin: boolean) {
+    return this.httpClient.patch<ProjectDTO>(`${this.URL}/projects/${id}`, { pinned: newPin });
+  }
 }

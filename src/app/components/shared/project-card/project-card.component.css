@@ -18,3 +18,30 @@
 h2 {
   margin-top: 0;
 }
+
+:host:hover .badge__wrapper .badge[data-pinned=false] {
+  opacity: 0.2;
+}
+
+.badge {
+  position: absolute;
+  right: -16px;
+  top: -16px;
+  opacity: 0;
+  height: 24px;
+  width: 24px;
+  border: 1px solid black;
+  border-radius: 50%;
+  background-color: #313131;
+  color: #fbfbfb;
+  text-align: center;
+  line-height: 24px;
+}
+
+.badge[data-pinned=true] {
+  opacity: 1;
+}
+
+.badge__wrapper {
+  position: relative;
+}
