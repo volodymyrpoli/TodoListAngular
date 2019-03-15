@@ -14,7 +14,7 @@ export class CardViewComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.todoList.load();
+    this.todoList.loadProjectForPreview();
   }
 
   openProject(project: Project) {

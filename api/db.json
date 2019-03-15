@@ -37,7 +37,7 @@
     {
       "id": 3,
       "title": "First project third task",
-      "mark": false,
+      "mark": true,
       "projectId": 1
     },
     {

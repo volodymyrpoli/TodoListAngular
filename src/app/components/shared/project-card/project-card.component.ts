@@ -18,7 +18,4 @@ export class ProjectCardComponent implements OnInit {
   ngOnInit() {
   }
 
-  openProject(event: MouseEvent) {
-    this.projectClick.emit(this.project);
-  }
 }

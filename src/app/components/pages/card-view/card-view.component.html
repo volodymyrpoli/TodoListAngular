@@ -5,7 +5,7 @@
     *ngFor="let project of todoList.projectsWithUnresolvedTasks | async"
     [project]="project"
     [tasks]="project.tasks"
-    (projectClick)="openProject($event)">
+    (click)="openProject(project)">
 
   </app-project-card>
 

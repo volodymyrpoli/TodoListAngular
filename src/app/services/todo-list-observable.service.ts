@@ -24,17 +24,9 @@ export class TodoListObservableService {
               private tasksRepository: TasksRepositoryService) {
   }
 
-  load() {
+  loadProjectForSplitView() {
     this.projectsEventHandler$ = this.createEventHandler<Project>(this.projects$);
     this.currentProjectTasksEventHandler$ = this.createEventHandler<Task>(this.currentProjectTasks$);
-
-    this.projects$.subscribe(projects => {
-      if (projects.length !== 0) {
-        this.loadTaskForProject(projects[0].id);
-      } else {
-        this.currentProject$.next(null);
-      }
-    });
 
     this.projectsRepository.getProjects()
       .pipe(map(projectDTOs => projectDTOs.map(Project.createFromDTO)))
@@ -44,6 +36,9 @@ export class TodoListObservableService {
           (acc, payload) => payload));
       });
 
+  }
+
+  loadProjectForPreview() {
     this.projectsRepository.getProjects()
       .pipe(map(projectDTOs => projectDTOs.map(Project.createFromDTO)))
       .subscribe(projects => {
@@ -56,15 +51,14 @@ export class TodoListObservableService {
               map(taskDTOs => taskDTOs.map(Task.createFromDTO)),
               map(tasks => tasks.filter(task => !task.mark))
             ).subscribe(tasks => {
-              project.tasks = tasks.slice(0, 5);
-              subject.complete();
-            });
+            project.tasks = tasks.slice(0, 5);
+            subject.complete();
+          });
         }
         forkJoin(list$).subscribe({
           complete: () => this.projectsWithUnresolvedTasks.next(projects)
         });
       });
-
   }
 
   loadTaskForProject(projectId: number) {

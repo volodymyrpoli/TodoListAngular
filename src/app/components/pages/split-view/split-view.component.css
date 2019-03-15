@@ -1,6 +1,7 @@
 :host {
   display: flex;
   width: 100%;
+  padding-top: 16px;
 }
 
 .project__list {
@@ -19,7 +20,7 @@
   padding: 8px;
   flex-basis: 300px;
   background-color: #fbfbfb;
-  height: calc(100vh - 16px);
+  height: calc(100vh - 32px);
 }
 
 .selected_project {

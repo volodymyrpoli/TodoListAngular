@@ -15,7 +15,7 @@ import { ProjectCardComponent } from './components/shared/project-card/project-c
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
   {path: 'projects/:projectId', component: SplitViewComponent},
-  {path: 'projects', component: SplitViewComponent},
+  {path: 'projects', redirectTo: 'projects/', pathMatch: 'full'},
   {path: 'dashboard', component: CardViewComponent}
 ];
 

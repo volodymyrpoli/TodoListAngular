@@ -3,6 +3,7 @@ import { Project } from '../../../entities/Project';
 import { TodoListObservableService } from '../../../services/todo-list-observable.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Task } from '../../../entities/Task';
+import { pluck } from 'rxjs/operators';
 
 @Component({
   selector: 'app-split-view',
@@ -12,22 +13,28 @@ import { Task } from '../../../entities/Task';
 export class SplitViewComponent implements OnInit {
 
   currentProject: Project;
+  private lastLoadedProjectId: number;
 
   constructor(private todoListObservable: TodoListObservableService,
               private activatedRouter: ActivatedRoute,
               private router: Router) {
+    console.log(this);
   }
 
   ngOnInit(): void {
-    this.todoListObservable.load();
+    this.todoListObservable.loadProjectForSplitView();
     this.todoListObservable.currentProject$
       .subscribe(project => this.currentProject = project);
-    this.activatedRouter.params.subscribe(value => {
+    this.activatedRouter.params
+      .pipe(pluck('projectId'))
+      .subscribe((value: number) => {
       if (value) {
-        this.todoListObservable.selectProjectById(value.projectId)
+        this.todoListObservable.selectProjectById(value)
           .subscribe({
             error: () => this.router.navigate(['projects/']).catch(console.log)
           });
+      } else if (this.lastLoadedProjectId) {
+        this.todoListObservable.selectProjectById(this.lastLoadedProjectId);
       }
     });
   }
