@@ -2,10 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { OneFieldFormComponent } from './components/one-field-form/one-field-form.component';
+import { OneFieldFormComponent } from './components/shared/one-field-form/one-field-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProjectListItemComponent } from './components/project-list-item/project-list-item.component';
-import { TaskListItemComponent } from './components/task-list-item/task-list-item.component';
+import { ProjectListItemComponent } from './components/shared/project-list-item/project-list-item.component';
+import { TaskListItemComponent } from './components/shared/task-list-item/task-list-item.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { SplitViewComponent } from './components/pages/split-view/split-view.component';

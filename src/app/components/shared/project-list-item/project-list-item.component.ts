@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Project} from '../../entities/Project';
+import {Project} from '../../../entities/Project';
 
 @Component({
   selector: 'app-project-list-item',
