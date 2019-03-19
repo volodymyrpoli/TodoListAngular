@@ -6,12 +6,13 @@ import { OneFieldFormComponent } from './components/shared/one-field-form/one-fi
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProjectListItemComponent } from './components/shared/project-list-item/project-list-item.component';
 import { TaskListItemComponent } from './components/shared/task-list-item/task-list-item.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { SplitViewComponent } from './components/pages/split-view/split-view.component';
 import { CardViewComponent } from './components/pages/card-view/card-view.component';
 import { ProjectCardComponent } from './components/shared/project-card/project-card.component';
 import { PinnedPipe } from './pipes/pinned.pipe';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
@@ -39,7 +40,9 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
