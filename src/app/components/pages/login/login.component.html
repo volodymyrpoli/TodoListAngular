@@ -4,11 +4,23 @@
     <form [formGroup]="form" (ngSubmit)="login()">
       <h2>Sign in</h2>
 
-      <label for="login">Login</label>
-      <input id="login" formControlName="login" type="text" name="person">
+      <label for="login">Login:</label>
+      <input id="login"
+             placeholder="Enter your login"
+             formControlName="login"
+             type="text"
+             name="person"
+             (keydown)="change()"
+             [class.error]="hasError">
 
-      <label for="password">Password</label>
-      <input id="password" formControlName="password" type="password" name="password">
+      <label for="password">Password:</label>
+      <input id="password"
+             placeholder="Enter your password"
+             formControlName="password"
+             type="password"
+             name="password"
+             (keydown)="change()"
+             [class.error]="hasError">
 
       <div class="action__buttons">
         <input type="submit" value="Sign in">

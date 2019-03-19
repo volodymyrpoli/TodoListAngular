@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   public form: FormGroup;
 
   public returnUrl: string;
+  public hasError: boolean;
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -37,10 +38,17 @@ export class LoginComponent implements OnInit {
       this.loginService.login(this.form.value.login, this.form.value.password)
         .subscribe(value => {
           if (value.token) {
+            this.form.reset();
             localStorage.setItem('currentUser', JSON.stringify({ token: value.token }));
             this.router.navigate([this.returnUrl]).catch(alert);
           }
         }, error => alert(JSON.stringify(error)));
+    } else {
+      this.hasError = true;
     }
+  }
+
+  change() {
+    this.hasError = false;
   }
 }
