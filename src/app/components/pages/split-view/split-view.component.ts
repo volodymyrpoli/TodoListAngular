@@ -65,4 +65,12 @@ export class SplitViewComponent implements OnInit {
   deleteProject(project: Project) {
     this.todoListObservable.deleteProject(project, this.currentProject);
   }
+
+  getCurrentProjectTask() {
+    return this.todoListObservable.currentProjectTasks$;
+  }
+
+  getProjects() {
+    return this.todoListObservable.projects$;
+  }
 }

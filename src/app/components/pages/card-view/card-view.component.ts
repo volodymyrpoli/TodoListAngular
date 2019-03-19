@@ -24,4 +24,8 @@ export class CardViewComponent implements OnInit {
   pinnedProject(project: Project) {
     this.previewService.changeProjectPin(project, !project.pinned);
   }
+
+  getProjectWithUnresolvedTasks() {
+    return this.previewService.projectsWithUnresolvedTasks$;
+  }
 }
