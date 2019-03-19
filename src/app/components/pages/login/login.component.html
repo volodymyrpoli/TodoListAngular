@@ -1,0 +1,19 @@
+<div class="login__wrapper">
+
+  <main>
+    <form [formGroup]="form" (ngSubmit)="login()">
+      <h2>Sign in</h2>
+
+      <label for="login">Login</label>
+      <input id="login" formControlName="login" type="text" name="person">
+
+      <label for="password">Password</label>
+      <input id="password" formControlName="password" type="password" name="password">
+
+      <div class="action__buttons">
+        <input type="submit" value="Sign in">
+      </div>
+    </form>
+  </main>
+
+</div>

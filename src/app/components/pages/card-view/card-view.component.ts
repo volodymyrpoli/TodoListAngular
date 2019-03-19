@@ -18,7 +18,7 @@ export class CardViewComponent implements OnInit {
   }
 
   openProject(project: Project) {
-    this.router.navigate([`projects/${project.id}`]);
+    this.router.navigate([`work/projects/${project.id}`]);
   }
 
   pinnedProject(project: Project) {

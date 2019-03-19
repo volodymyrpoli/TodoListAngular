@@ -30,7 +30,7 @@ export class SplitViewComponent implements OnInit {
           localStorage.setItem('lastLoadProjectId', `${value}`);
           this.todoListObservable.selectProjectById(value)
             .subscribe({
-              error: () => this.router.navigate(['projects/']).catch(console.log)
+              error: () => this.router.navigate(['work/projects/']).catch(console.log)
             });
         } else if (localStorage.getItem('lastLoadProjectId')) {
           this.todoListObservable.selectProjectById(+localStorage.getItem('lastLoadProjectId'));
@@ -59,7 +59,7 @@ export class SplitViewComponent implements OnInit {
   }
 
   selectProject(project: Project) {
-    this.router.navigate([`projects/${project.id}`]);
+    this.router.navigate([`work/projects/${project.id}`]);
   }
 
   deleteProject(project: Project) {

@@ -30,3 +30,8 @@ h2 {
 .list__without__style li:nth-child(even) {
   background-color: #f2f2f2;
 }
+
+html,
+body {
+  height: 100%;
+}

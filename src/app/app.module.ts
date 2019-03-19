@@ -13,12 +13,24 @@ import { CardViewComponent } from './components/pages/card-view/card-view.compon
 import { ProjectCardComponent } from './components/shared/project-card/project-card.component';
 import { PinnedPipe } from './pipes/pinned.pipe';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { LoginComponent } from './components/pages/login/login.component';
+import { MainContainerComponent } from './components/pages/main-container/main-container.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
-  {path: 'projects/:projectId', component: SplitViewComponent},
-  {path: 'projects', redirectTo: 'projects/', pathMatch: 'full'},
-  {path: 'dashboard', component: CardViewComponent}
+  { path: '', redirectTo: 'work', pathMatch: 'full' },
+  {
+    path: 'work',
+    component: MainContainerComponent,
+    canActivate: [ AuthGuard ],
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'projects/:projectId', component: SplitViewComponent },
+      { path: 'projects', redirectTo: 'projects/', pathMatch: 'full' },
+      { path: 'dashboard', component: CardViewComponent },
+    ]
+  },
+  { path: 'login', component: LoginComponent }
 ];
 
 
@@ -32,6 +44,8 @@ const routes: Routes = [
     CardViewComponent,
     ProjectCardComponent,
     PinnedPipe,
+    LoginComponent,
+    MainContainerComponent,
   ],
   imports: [
     BrowserModule,

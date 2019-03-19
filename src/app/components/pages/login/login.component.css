@@ -1,0 +1,46 @@
+:host {
+  width: 100vw;
+  height: 100vh;
+}
+
+.login__wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e1ffff;
+  background: radial-gradient(
+    ellipse at center,
+    #e1ffff 0%,
+    #e1ffff 7%,
+    #e1ffff 12%,
+    #fdffff 12%,
+    #e6f8fd 30%,
+    #c8eefb 54%,
+    #bee4f8 75%,
+    #b1d8f5 100%
+  );
+}
+
+main {
+  width: 350px;
+  height: 200px;
+  margin: auto;
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 8px;
+  background: #fbfbfb;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.action__buttons {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+}
