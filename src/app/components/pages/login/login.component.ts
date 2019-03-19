@@ -40,7 +40,11 @@ export class LoginComponent implements OnInit {
           if (value.token) {
             this.form.reset();
             localStorage.setItem('currentUser', JSON.stringify({ token: value.token }));
-            this.router.navigate([this.returnUrl]).catch(alert);
+            if (this.returnUrl) {
+              this.router.navigate([this.returnUrl]).catch(alert);
+            } else {
+              this.router.navigate(['work/dashboard']).catch(alert);
+            }
           }
         }, error => alert(JSON.stringify(error)));
     } else {

@@ -35,6 +35,7 @@ nav {
   display: flex;
   align-items: center;
   border: 1px solid transparent;
+  cursor: pointer;
 }
 
 .nav__links a:hover {
@@ -45,4 +46,8 @@ nav {
   font-family: 'Courier New', serif;
   padding: 0 16px 0 16px;
   font-weight: bold;
+}
+
+.push__right {
+  margin-left: auto;
 }
